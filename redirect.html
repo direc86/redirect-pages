@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Redirect Berantai dengan Iframe</title>
+  <title>Redirect Berantai dengan Iframe (10 Detik)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body { font-family: sans-serif; text-align: center; margin-top: 50px; }
@@ -10,16 +10,16 @@
   </style>
 </head>
 <body>
-  <h2>Proses redirect sedang berlangsung...</h2>
-  <p id="status">Menyiapkan redirect pertama...</p>
+  <h2>Redirect sedang berlangsung...</h2>
+  <p id="status">Bersiap untuk redirect pertama...</p>
 
   <iframe id="iframe" sandbox></iframe>
 
   <script>
     const steps = [
-      { url: "https://google.com", delay: 0 },        // Redirect pertama
-      { url: "https://bing.com", delay: 10 },      // Redirect kedua setelah 60 detik
-      { url: "https://pinterest.com", delay: 10, full: true }  // Redirect penuh setelah 60 detik
+      { url: "https://google.com", delay: 0 },
+      { url: "https://bing.com", delay: 10 },
+      { url: "https://pinterest.com", delay: 10, full: true }
     ];
 
     const iframe = document.getElementById("iframe");
