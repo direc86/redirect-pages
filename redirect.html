@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirect Berantai dengan Iframe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    #iframe { display: none; width: 0; height: 0; }
+  </style>
+</head>
+<body>
+  <h2>Proses redirect sedang berlangsung...</h2>
+  <p id="status">Menyiapkan redirect pertama...</p>
+
+  <iframe id="iframe" sandbox></iframe>
+
+  <script>
+    const steps = [
+      { url: "https://google.com", delay: 0 },        // Redirect pertama
+      { url: "https://bing.com", delay: 10 },      // Redirect kedua setelah 60 detik
+      { url: "https://pinterest.com", delay: 10, full: true }  // Redirect penuh setelah 60 detik
+    ];
+
+    const iframe = document.getElementById("iframe");
+    const status = document.getElementById("status");
+
+    let totalDelay = 0;
+
+    steps.forEach(({ url, delay, full }, index) => {
+      totalDelay += delay;
+      setTimeout(() => {
+        if (full) {
+          status.innerText = `Mengalihkan sepenuhnya ke: ${url}`;
+          window.location.href = url;
+        } else {
+          iframe.src = url;
+          status.innerText = `Membuka dalam iframe: ${url}`;
+        }
+      }, totalDelay * 1000);
+    });
+  </script>
+</body>
+</html>
