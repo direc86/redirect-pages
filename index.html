@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Gradual Redirect</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h2>Chained redirects are running...</h2>
+  <p id="status">Prepare to redirect to the first URL...</p>
+
+  <script type="text/javascript">
+    // Daftar URL dan waktu jeda antar-redirect (dalam detik)
+    const urls = [
+      { url: "https://google.com", delay: 0 },
+      { url: "https://bing.com", delay: 60 },
+      { url: "https://pinterest.com", delay: 60 }
+    ];
+
+    function redirectSequence(index = 0) {
+      if (index >= urls.length) {
+        document.getElementById("status").innerText = "Redirect completed.";
+        return;
+      }
+
+      const { url, delay } = urls[index];
+
+      document.getElementById("status").innerText = `Mengalihkan ke ${url} dalam ${delay} detik...`;
+
+      setTimeout(() => {
+        window.location.href = url;
+      }, delay * 1000);
+    }
+
+    // Jalankan seluruh urutan secara berantai dari satu halaman
+    (function startSequence() {
+      let totalDelay = 0;
+
+      urls.forEach(({ url, delay }, i) => {
+        totalDelay += delay;
+
+        setTimeout(() => {
+          document.getElementById("status").innerText = `Mengalihkan ke: ${url}`;
+          window.location.href = url;
+        }, totalDelay * 1000);
+      });
+    })();
+  </script>
+
+  <noscript>
+    <meta http-equiv="refresh" content="0;url=https://google.com">
+  </noscript>
+</body>
+</html>
